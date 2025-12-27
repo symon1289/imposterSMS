@@ -150,6 +150,7 @@ class GameProvider extends ChangeNotifier {
 
     // Mark this question as played
     _currentQuestion!.isPlayed = true;
+    await _currentQuestion!.save();
 
     // Also track in the set for backward compatibility
     _usedQuestionIds.add(_currentQuestion!.id);
@@ -292,5 +293,11 @@ class GameProvider extends ChangeNotifier {
   // Get count of unplayed questions
   int getUnplayedQuestionsCount() {
     return _questions.where((q) => !q.isPlayed).length;
+  }
+
+  Future<void> toggleQuestionPlayed(Question question) async {
+    question.isPlayed = !question.isPlayed;
+    await question.save();
+    notifyListeners();
   }
 }

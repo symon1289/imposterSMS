@@ -14,8 +14,8 @@ class Question extends HiveObject {
   @HiveField(2)
   String imposterQuestion;
 
-  // Non-persisted field to track if question is played in current session
-  bool isPlayed = false;
+  @HiveField(3)
+  bool isPlayed;
 
   Question({
     required this.id,
