@@ -155,16 +155,16 @@ class GameScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 20),
+                    // Start Button with validation logic
                     ElevatedButton(
-                      onPressed: () {
-                        // Show dialog first
-                        _showStatusDialog(context, provider);
-
-                        // Start round logic
-                        provider.startRound().then((error) {
-                          // Error handling is now inside the dialog mainly
-                        });
-                      },
+                      onPressed:
+                          (provider.players.length >= 4 &&
+                              provider.questions.isNotEmpty)
+                          ? () {
+                              _showStatusDialog(context, provider);
+                              provider.startRound().then((error) {});
+                            }
+                          : null,
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 40,
@@ -176,6 +176,31 @@ class GameScreen extends StatelessWidget {
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
+                    if (!(provider.players.length >= 4 &&
+                        provider.questions.isNotEmpty))
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16.0),
+                        child: Column(
+                          children: [
+                            if (provider.players.length < 4)
+                              Text(
+                                'Need at least 4 players (Currently: ${provider.players.length})',
+                                style: const TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            if (provider.questions.isEmpty)
+                              const Text(
+                                'Need at least 1 question pair',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
                     // Add reset questions button if all questions are played
                     if (provider.getUnplayedQuestionsCount() == 0 &&
                         provider.questions.isNotEmpty)
