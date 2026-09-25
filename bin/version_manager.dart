@@ -60,7 +60,38 @@ void main(List<String> args) {
   lines[versionLineIndex] = 'version: $newVersionString';
 
   file.writeAsStringSync(lines.join('\n'));
-  print('Updated version to: $newVersionString');
+  print('Updated version in pubspec.yaml to: $newVersionString');
+
+  // Update README.md version
+  final readmeFile = File('README.md');
+  if (readmeFile.existsSync()) {
+    var readmeContent = readmeFile.readAsStringSync();
+
+    final badgeVersion = newVersionString.replaceAll('+', '%2B');
+
+    // 1. Update Version badge URL (%2B for +)
+    readmeContent = readmeContent.replaceAllMapped(
+      RegExp(r'(!\[Version\]\(https://img\.shields\.io/badge/Version-)[^-\)]+(-blue\))'),
+      (match) => '${match[1]}$badgeVersion${match[2]}',
+    );
+
+    // 2. Update version in description / Tech Stack section
+    readmeContent = readmeContent.replaceAllMapped(
+      RegExp(r'(and version `)[^`]+(`\.)'),
+      (match) => '${match[1]}$newVersionString${match[2]}',
+    );
+
+    // 3. Update Current Version in Project Status section
+    readmeContent = readmeContent.replaceAllMapped(
+      RegExp(r'(\*\*Current Version:\*\* `)[^`]+(`)'),
+      (match) => '${match[1]}$newVersionString${match[2]}',
+    );
+
+    readmeFile.writeAsStringSync(readmeContent);
+    print('Updated version in README.md to: $newVersionString');
+  } else {
+    print('Warning: README.md not found.');
+  }
 
   // Git operations
   final gitDir = Directory('.git');

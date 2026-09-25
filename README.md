@@ -13,7 +13,7 @@
 ![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?logo=flutter\&logoColor=white)
 ![Dart](https://img.shields.io/badge/Dart-3.x-0175C2?logo=dart\&logoColor=white)
 ![Platform](https://img.shields.io/badge/Platform-Android-3DDC84?logo=android\&logoColor=white)
-![Version](https://img.shields.io/badge/Version-1.3.1%2B10-blue)
+![Version](https://img.shields.io/badge/Version-1.3.1%2B12-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 </p>
@@ -152,7 +152,7 @@ The project includes:
 | [Build Runner](https://pub.dev/packages/build_runner)             | Code generation                               |
 | [Hive Generator](https://pub.dev/packages/hive_generator)         | Hive adapter generation                       |
 
-The current application uses Dart SDK `^3.10.1` and version `1.3.1+10`.
+The current application uses Dart SDK `^3.10.1` and version `1.3.1+12`.
 
 ---
 
@@ -397,7 +397,7 @@ Example:
 
 The script automatically:
 
-1. Updates the version in `pubspec.yaml`.
+1. Updates the version in `pubspec.yaml` and `README.md`.
 2. Commits the version change.
 3. Creates a Git tag for the new version.
 
@@ -530,7 +530,7 @@ and update this section with the exact license terms.
 
 ## 📌 Project Status
 
-**Current Version:** `1.3.1+10`
+**Current Version:** `1.3.1+12`
 
 **Platform:** Android
 
@@ -584,6 +584,6 @@ dart bin/version_manager.dart major
 ```
 
 The script will:
-1. Update `version` in `pubspec.yaml`.
+1. Update `version` in `pubspec.yaml` and `README.md`.
 2. Commit the change to Git.
 3. Create a Git tag (e.g., `v1.0.0+2`).
